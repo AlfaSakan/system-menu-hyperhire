@@ -1,4 +1,5 @@
 export { default as IconMenu } from "./menu.icon";
+export { default as IconMenuClosed } from "./menu-closed.icon";
 export { default as IconLogo } from "./logo.icon";
 export { default as IconChevronDown } from "./chevron-down.icon";
 export { default as IconDirectory } from "./directory.icon";

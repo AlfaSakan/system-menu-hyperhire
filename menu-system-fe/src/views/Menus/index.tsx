@@ -7,6 +7,7 @@ import {
   IconDirectoryFill,
   IconLogo,
   IconMenu,
+  IconMenuClosed,
   IconSubmenu1Fill,
 } from "@/components/atoms/icon";
 import InputText from "@/components/atoms/Input/Input";
@@ -168,6 +169,18 @@ export default function MenusView() {
     });
   }, []);
 
+  const handleToggleMenuSidebar = useCallback(() => {
+    const menuSidebar = document.querySelector("#menu-sidebar");
+    if (!menuSidebar) return;
+
+    if (menuSidebar.getAttribute("data-open")) {
+      menuSidebar.removeAttribute("data-open");
+      return;
+    }
+
+    menuSidebar.setAttribute("data-open", "true");
+  }, []);
+
   useEffect(() => {
     if (listMenusQuery.data?.ok) {
       setListMenus(listMenusQuery.data.data);
@@ -182,10 +195,19 @@ export default function MenusView() {
 
   return (
     <div className="flex min-h-screen min-w-[100vw]">
-      <div className="bg-blue-gray-900 m-6 mr-0 rounded-3xl w-60 text-white">
+      <div
+        id="menu-sidebar"
+        className={cn(
+          "bg-blue-gray-900 m-6 mr-0 rounded-3xl w-60 text-white hidden data-[open]:block fixed z-50 top-0 bottom-0",
+          "md:block md:relative",
+          "before:bg-black/30 before:-top-6 before:-left-6 before:content-[''] before:w-screen before:h-screen before:block before:absolute before:-z-20 md:before:hidden"
+        )}
+      >
         <div className="flex items-center justify-between px-8 py-[31.5px]">
           <IconLogo />
-          <IconMenu />
+          <button type="button" onClick={handleToggleMenuSidebar}>
+            <IconMenu />
+          </button>
         </div>
         <div className="px-4 py-2.5">
           {menusState.map((menu, index) => (
@@ -195,7 +217,10 @@ export default function MenusView() {
             >
               <button
                 type="button"
-                className="flex items-center gap-4 p-3 w-full"
+                className={cn(
+                  "flex items-center gap-4 p-3 w-full text-left text-blue-gray-500",
+                  menu.active && "text-white"
+                )}
                 onClick={() => handleToggleMenu(index)}
               >
                 {menu.active ? <IconDirectoryFill /> : <IconDirectory />}
@@ -205,7 +230,8 @@ export default function MenusView() {
                 <div
                   key={menu.label + submenu.label}
                   className={cn(
-                    "items-center gap-4 p-3 data-[active=true]:bg-lime-green-400 rounded-2xl hidden",
+                    "items-center gap-4 p-3 rounded-2xl hidden text-blue-gray-500",
+                    "data-[active=true]:text-blue-gray-900 data-[active=true]:bg-lime-green-400 data-[active=true]:font-bold",
                     menu.active && "flex"
                   )}
                   data-active={submenu.active}
@@ -219,19 +245,26 @@ export default function MenusView() {
         </div>
       </div>
       <div className="w-full py-6 text-blue-gray-900">
-        <div className="flex items-center py-4 px-12">
+        <button
+          className="ml-6 md:hidden"
+          type="button"
+          onClick={handleToggleMenuSidebar}
+        >
+          <IconMenuClosed />
+        </button>
+        <div className="flex items-center py-4 px-6 md:px-12">
           <IconDirectoryFill fill="#D0D5DD" />
           <span className="ml-2 text-blue-gray-300">
             {"  "}/ <span>Menus</span>
           </span>
         </div>
-        <div className="px-12 py-4 flex items-center gap-4">
+        <div className="px-6 md:px-12 py-4 flex items-center gap-4">
           <div className="p-[14px] bg-arctic-blue-600 rounded-full w-fit">
             <IconSubmenu1Fill />
           </div>
           <p className="text-[32px] leading-10 font-extrabold">Menus</p>
         </div>
-        <div className="px-12">
+        <div className="px-6 md:px-12">
           <Dropdown
             label="Menu"
             placeholder="Menu"
@@ -245,7 +278,7 @@ export default function MenusView() {
             }}
           />
         </div>
-        <div className="px-12 py-7">
+        <div className="px-6 md:px-12 py-7">
           <Button variant="dark" onClick={handleExpandAll}>
             Expand All
           </Button>
@@ -257,7 +290,7 @@ export default function MenusView() {
             Collapse All
           </Button>
         </div>
-        <div className="grid grid-cols-2 px-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 px-6 md:px-12 gap-[86px] md:gap-0">
           <TreeList
             first
             menus={listMenus}
@@ -299,12 +332,12 @@ export default function MenusView() {
                 onChange={handleChange("name")}
               />
               <Button
-                className="mt-4 w-[262px]"
+                className="mt-4 w-[159px] md:w-[262px]"
                 onClick={
                   formType === "edit" ? handleSaveUpdate : handleSubmitCreate
                 }
               >
-                Save
+                {formType === "edit" ? "Save" : "Create New"}
               </Button>
             </div>
           ) : null}

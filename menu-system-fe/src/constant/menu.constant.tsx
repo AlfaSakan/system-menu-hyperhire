@@ -1,4 +1,8 @@
-import { IconSubmenu1, IconSubmenu2 } from "@/components/atoms/icon";
+import {
+  IconSubmenu1,
+  IconSubmenu1Fill,
+  IconSubmenu2,
+} from "@/components/atoms/icon";
 
 type Menu = {
   label: string;
@@ -13,7 +17,7 @@ export const menus: Menu[] = [
     submenus: [
       { label: "System Code", icon: <IconSubmenu1 /> },
       { label: "Properties", icon: <IconSubmenu2 /> },
-      { label: "Menus", icon: <IconSubmenu1 />, active: true },
+      { label: "Menus", icon: <IconSubmenu1Fill fill="black" />, active: true },
       { label: "API List", icon: <IconSubmenu2 /> },
     ],
   },

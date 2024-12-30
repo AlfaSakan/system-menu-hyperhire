@@ -14,7 +14,7 @@ export default function InputText({ label, className, ...props }: Props) {
         type="text"
         placeholder="Menu ID"
         className={cn(
-          "bg-blue-gray-50 rounded-2xl px-4 h-[52px] disabled:bg-blue-gray-200 w-[262px]",
+          "bg-blue-gray-50 rounded-2xl px-4 h-[52px] disabled:bg-blue-gray-200 w-full md:w-[262px]",
           className
         )}
         {...props}
