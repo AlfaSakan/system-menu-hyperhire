@@ -1,0 +1,9 @@
+export { default as IconMenu } from "./menu.icon";
+export { default as IconLogo } from "./logo.icon";
+export { default as IconChevronDown } from "./chevron-down.icon";
+export { default as IconDirectory } from "./directory.icon";
+export { default as IconDirectoryFill } from "./directory-fill.icon";
+export { default as IconSubmenu1 } from "./submenu-1.icon";
+export { default as IconSubmenu1Fill } from "./submenu-1-fill.icon";
+export { default as IconSubmenu2 } from "./submenu-2.icon";
+export { default as IconTrash } from "./trash.icon";
