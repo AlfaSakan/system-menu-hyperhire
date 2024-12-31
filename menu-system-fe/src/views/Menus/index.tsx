@@ -308,7 +308,8 @@ export default function MenusView() {
                   name="menuId"
                   value={form.id}
                   onChange={handleChange("id")}
-                  className="w-full"
+                  className="md:w-full"
+                  disabled
                 />
               )}
               <InputText
@@ -323,7 +324,7 @@ export default function MenusView() {
                 placeholder="Parent Data"
                 value={form.parentName}
                 onChange={handleChange("parentName")}
-                readOnly
+                disabled
               />
               <InputText
                 label="Name"
